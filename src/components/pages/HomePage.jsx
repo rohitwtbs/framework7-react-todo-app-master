@@ -27,14 +27,18 @@ export default class HomePage extends Component {
       });
     });
   };
-  deleteTask = () => {
-    let dummy = this.state.tasks.pop();
-    console.log(dummy);
+  deleteTask = (obj) => {
+    console.log(obj)
+    //let dummy = this.state.tasks.pop();
+    let tasks=[];
+    for(let objects in this.state.tasks) {
+      console.log(this.state.tasks[objects]);
+      if(this.state.tasks[objects].name !== obj.name){
+        tasks.push(this.state.tasks[objects]);
+      }
+    }
    this.setState({
-     tasks: [
-      ...this.state.tasks,
-      { dummy }
-     ]
+     tasks
    });
   };
 
@@ -64,7 +68,7 @@ export default class HomePage extends Component {
           <ListItem title={task.name} key={i}>
             <Toggle slot="after"/>
             <Link iconOnly iconF7="alarm" onClick={this.alarmDialog}/>
-            <Link iconOnly iconF7="delete_round_fill" onClick={this.deleteTask}/>
+            <Link iconOnly iconF7="delete_round_fill" onClick={(e) => {this.deleteTask(task)}}/>
             <ListItem title={task.alarmTime} key={i}>
               </ListItem>
           </ListItem>
